@@ -6,8 +6,21 @@ const app = express()
 
 
 app.get("/",(req,res)=>{
-    res.send("Bye World")
-} )
+ //   res.json({
+   //     "name":"Santoshi Chaulagain",
+      //  "age": 23
+
+      res.status(200).json({
+        "message": "success"
+      })
+
+
+
+    }
+   
+
+    )
+ 
 
 
 

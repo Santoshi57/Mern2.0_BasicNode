@@ -1,8 +1,10 @@
 const express = require('express')
+const connectToDatabase = require('./database')
 const app = express()
-const connectToDatabase = required('./database')
+
 //alternative
 //const app = require('express')()
+const ConnectionString="mongodb+srv://santoshi:UJIby1myeVYXFpRX@cluster0.s5ezukk.mongodb.net/?retryWrites=true&w=majority"
 
 connectToDatabase()
 
@@ -17,12 +19,6 @@ app.get("/",(req,res)=>{
       })
     } )
  
-
-
-
-
-
-
 
 app.listen(3000,()=>{
     console.log("Nodejs server has started at port 3000.")

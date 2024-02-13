@@ -31,12 +31,48 @@ app.get("/",(req,res)=>{
         bookPrice,
         isbnNumber,
         authorName,
-        publishedAt,
+        publishedAt, 
         publicationName
       })
  res.json({
   message: "Book created Successfully"
  })
+})
+app.get("/book",async(req,res)=>{
+  const books = await Book.find()//return array ma garxa
+  console.log(books)
+  res.status(200).json({
+    message: "Books fetched successfully",
+    data : books
+  })
+})
+//single read
+app.get("/book/:id",async(req,res)=>{
+ // console.log(req.params.id)
+ const id = req.params.id
+  const book = await Book.findById(id)//return object garxa
+//if(!book){
+//res.status(404).json({
+//message:"Nothing found"
+//})
+//}else{
+//res.status(200).json({
+//message:"Single Book Fetched",
+//data:book
+  //})
+//}
+//}catch (error){
+  //res.status(500).json({
+    //message: "Something went wrong"
+  //})
+//}
+//})
+
+
+  res.status(200).json({
+    message: "Single Book Fetched Successfully",
+    data: book
+  })
 })
 
 app.listen(3000,()=>{

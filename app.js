@@ -77,9 +77,9 @@ app.get("/book/:id",async(req,res)=>{
 })
 
 //delete operation
-app.get("/book/:id",(req,res)=>{
+app.get("/deletebook/:id",async(req,res)=>{
   const id =req.params.id
-  Book.findByIdAndDelete(id)
+  await Book.findByIdAndDelete(id)
   res.status(200).json({
     message:"Book Deleted Successfully"
   })

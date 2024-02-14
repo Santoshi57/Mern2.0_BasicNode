@@ -49,6 +49,7 @@ app.get("/book",async(req,res)=>{
 //single read
 app.get("/book/:id",async(req,res)=>{
  // console.log(req.params.id)
+//try{
  const id = req.params.id
   const book = await Book.findById(id)//return object garxa
 //if(!book){
@@ -74,6 +75,16 @@ app.get("/book/:id",async(req,res)=>{
     data: book
   })
 })
+
+//delete operation
+app.get("/book/:id",(req,res)=>{
+  const id =req.params.id
+  Book.findByIdAndDelete(id)
+  res.status(200).json({
+    message:"Book Deleted Successfully"
+  })
+})
+
 
 app.listen(3000,()=>{
     console.log("Nodejs server has started at port 3000.")

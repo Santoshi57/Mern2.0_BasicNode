@@ -52,7 +52,8 @@ app.get("/book/:id",async(req,res)=>{
 //try{
  const id = req.params.id
   const book = await Book.findById(id)//return object garxa
-//if(!book){
+//Book.find({id :id})//another way to find the id
+  //if(!book){
 //res.status(404).json({
 //message:"Nothing found"
 //})
@@ -84,6 +85,23 @@ app.get("/deletebook/:id",async(req,res)=>{
     message:"Book Deleted Successfully"
   })
 })
+// update operation
+app.patch("/book/:id",async(req,res)=>{
+  const id =req.params.id//kun book update garney tesako id
+  const{bookName,authorName,bookPrice,publishedAt,isbnNumber,publication} = req.body
+  await Book.findByIdAndUpdate(id,{
+    bookName : bookName,
+    bookPrice : bookPrice,
+    authorName: authorName,
+    publication: publication,
+    publishedAt : publishedAt,
+    isbnNumber: isbnNumber
+  })
+  res.status(200).json({
+    message : "Book Updated successfully"
+  })
+})
+
 
 
 app.listen(3000,()=>{

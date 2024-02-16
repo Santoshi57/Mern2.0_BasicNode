@@ -3,6 +3,14 @@ const connectToDatabase = require('./database')
 const Book = require('./model/bookModel')
 const app = express()
 
+const connectToDatabase= require('./database')
+const Book = require('./model/bookModel')
+
+//multerconfig imports
+const multer = require("./middleware/multerConfig").multer
+const storage = require("./middleware/multerConfig").storage
+
+
 //alternative
 //const app = require('express')()
 
@@ -23,6 +31,7 @@ app.get("/",(req,res)=>{
       })
     })
 
+    //create book
  app.post("/book",async(req, res)=>{
 
     const {bookName,bookPrice,isbnNumber,authorName,publishedAt,publicationName} = req.body

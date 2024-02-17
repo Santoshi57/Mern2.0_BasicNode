@@ -3,9 +3,10 @@ const multer = require('multer')
  const storage = multer.diskStorage({
     destination : function(req,file,cb){
         console.log(file)
-        const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg']
-        if(!allowedFileTypes.includes(file.minetype)){
-            cb(new Error)
+        const allowedFileTypes = ['image/png','image/jpeg','image/jpg']
+        if(!allowedFileTypes.includes(file.mimetype)){
+            cb(new Error("This filetype is not supported")) //cb(error)
+            return
         }
         cb(null,'./storage')// ---> cb(error,success)
     },

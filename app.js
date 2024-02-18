@@ -32,11 +32,11 @@ app.get("/",(req,res)=>{
     //create book
  app.post("/book",upload.single("image"), async(req, res)=>{
   console.log(req.file)
- let fileName= req.file.fileName
+ let fileName;
   if (!req.file){
     fileName ="https://imgs.search.brave.com/L2pbvx7wW_p95WH9cON-Azi3bOyvL-0E4bzabGMf7gs/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9jZG40/LnZlY3RvcnN0b2Nr/LmNvbS9pLzEwMDB4/MTAwMC80Ny8zOC9h/bm9ueW1vdXMtcGVy/c29uLWVwcy1pY29u/LXZlY3Rvci0yMTM4/NDczOC5qcGc "
   }else{
-    fileName = req.file.fileName
+    fileName = "http://localhost:3000/" + req.file.fileName
   }
 
     const {bookName,bookPrice,isbnNumber,authorName,publishedAt,publicationName} = req.body
@@ -47,7 +47,7 @@ app.get("/",(req,res)=>{
         authorName,
         publishedAt, 
         publicationName,
-        imageUrl:fileName
+        imageUrl: fileName
       })
  res.json({
   message: "Book created Successfully"
@@ -101,9 +101,20 @@ app.get("/deletebook/:id",async(req,res)=>{
   })
 })
 // update operation
-app.patch("/book/:id",async(req,res)=>{
+app.patch("/book/:id",upload.single("image"),async(req,res)=>{
   const id =req.params.id//kun book update garney tesako id
   const{bookName,authorName,bookPrice,publishedAt,isbnNumber,publication} = req.body
+  const oldDatas = await Book.findById(id)
+  if(req.file){
+
+    const oldImagePath = oldDatas.imageUrl
+    console.log(oldImagePath)
+    const localHostUrlLength ="http://localhost:3000/".length
+    const newOldImagePath = oldImagePath.slice
+    (localHostUrlLength)
+    console.log(newOldImagePath)
+  }
+
   await Book.findByIdAndUpdate(id,{
     bookName : bookName,
     bookPrice : bookPrice,

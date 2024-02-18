@@ -31,6 +31,13 @@ app.get("/",(req,res)=>{
 
     //create book
  app.post("/book",upload.single("image"), async(req, res)=>{
+  console.log(req.file)
+ let fileName= req.file.fileName
+  if (!req.file){
+    fileName ="https://imgs.search.brave.com/L2pbvx7wW_p95WH9cON-Azi3bOyvL-0E4bzabGMf7gs/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9jZG40/LnZlY3RvcnN0b2Nr/LmNvbS9pLzEwMDB4/MTAwMC80Ny8zOC9h/bm9ueW1vdXMtcGVy/c29uLWVwcy1pY29u/LXZlY3Rvci0yMTM4/NDczOC5qcGc "
+  }else{
+    fileName = req.file.fileName
+  }
 
     const {bookName,bookPrice,isbnNumber,authorName,publishedAt,publicationName} = req.body
      await Book.create({
@@ -39,7 +46,8 @@ app.get("/",(req,res)=>{
         isbnNumber,
         authorName,
         publishedAt, 
-        publicationName
+        publicationName,
+        imageUrl:fileName
       })
  res.json({
   message: "Book created Successfully"
@@ -109,7 +117,7 @@ app.patch("/book/:id",async(req,res)=>{
   })
 })
 
-
+app.use(express.static("./storage/"))
 
 app.listen(3000,()=>{
     console.log("Nodejs server has started at port 3000.")

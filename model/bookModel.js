@@ -20,7 +20,11 @@ const bookSchema = new Schema({
     },
     publicationName:{
         type: String
+    },
+    imageUrl:{
+        type: String
     }
+
 })
 const Book = mongoose.model('Book',bookSchema)
 module.exports = Book
